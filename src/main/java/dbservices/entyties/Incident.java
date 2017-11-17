@@ -8,14 +8,14 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "crashes")
-public class Crash {
+public class Incident {
     @Id @Column(name = "id")
     private long id;
     @Column(name = "type")
     private String type;
     @Column(name = "startdate")
     private LocalDateTime startDate;
-    private LocalDateTime endDate;
+    private LocalDateTime timeToSolve;
     private LocalDateTime closeDate;
     private LocalDateTime updatedDate;
     private User creator;

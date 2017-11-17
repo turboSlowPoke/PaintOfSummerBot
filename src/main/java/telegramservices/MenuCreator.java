@@ -1,9 +1,12 @@
 package telegramservices;
 
+import org.telegram.telegrambots.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.api.objects.replykeyboard.ReplyKeyboard;
 import org.telegram.telegrambots.api.objects.replykeyboard.ReplyKeyboardMarkup;
+import org.telegram.telegrambots.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.api.objects.replykeyboard.buttons.KeyboardButton;
 import org.telegram.telegrambots.api.objects.replykeyboard.buttons.KeyboardRow;
+import telegramservices.enums.IncidentType;
 import telegramservices.enums.KeybordCommand;
 
 import java.util.ArrayList;
@@ -14,8 +17,8 @@ public class MenuCreator {
         ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
         List<KeyboardRow> keyboardRows = new ArrayList<>();
         KeyboardRow keyboardRow1 = new KeyboardRow();
-        keyboardRow1.add(new KeyboardButton(KeybordCommand.CURRENTCRASH.getText()));
-        keyboardRow1.add(new KeyboardButton(KeybordCommand.NEWCRASH.getText()));
+        keyboardRow1.add(new KeyboardButton(KeybordCommand.CURRENTINCIDENT.getText()));
+        keyboardRow1.add(new KeyboardButton(KeybordCommand.NEWINCIDENT.getText()));
         KeyboardRow keyboardRow2 = new KeyboardRow();
         keyboardRow2.add(new KeyboardButton(KeybordCommand.INFO.getText()));
         keyboardRow2.add(new KeyboardButton(KeybordCommand.CHAT.getText()));
@@ -28,5 +31,23 @@ public class MenuCreator {
         keyboardMarkup.setKeyboard(keyboardRows);
         keyboardMarkup.setResizeKeyboard(true);
         return keyboardMarkup;
+    }
+
+    public InlineKeyboardMarkup createSelectIncidentTypeMenu() {
+        InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
+        List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
+        for (IncidentType incindentType : IncidentType.values()){
+            List<InlineKeyboardButton> rowInline = new ArrayList<>();
+            rowInline.add(new InlineKeyboardButton().setText(incindentType.getText()).setCallbackData(incindentType.getText()));
+            rowsInline.add(rowInline);
+        }
+        markupInline.setKeyboard(rowsInline);
+        System.out.println("Создан SelectIncidentTypeMenu");
+        return markupInline;
+    }
+
+    public InlineKeyboardMarkup createTimeToSolveMenu(IncidentType incidentType) {
+
+        return null;
     }
 }

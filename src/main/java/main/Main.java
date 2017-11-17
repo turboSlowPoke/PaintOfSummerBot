@@ -1,22 +1,34 @@
 package main;
 
-public class Main {
-    public static void main(String[] a){
-        int floorsInHouse=18;
-        int buildNumbersOnFloor=18;
-        int flat = 129;
-        int floor;
-        int builnumber;
+import dbservices.DbService;
+import org.apache.log4j.Logger;
+import org.telegram.telegrambots.ApiContextInitializer;
+import org.telegram.telegrambots.TelegramBotsApi;
+import org.telegram.telegrambots.exceptions.TelegramApiRequestException;
+import telegramservices.WebhookService;
 
-        int tempfloor = flat/floorsInHouse;
-        if (flat%floorsInHouse==0)
-            floor=tempfloor+1;
-        else
-            floor=tempfloor+2;
-        int firstFlat = tempfloor*floorsInHouse;
-        if (firstFlat==flat)
-            builnumber=buildNumbersOnFloor;
-        else
-            builnumber = flat-firstFlat;
+public class Main {
+    private static final Logger log = Logger.getLogger(Main.class);
+    public static void main(String[] args){
+        DbService.getInstance();
+        System.out.println("********dbService started*******");
+        ApiContextInitializer.init();
+        WebhookService webhookService = new WebhookService();
+
+        try {
+            TelegramBotsApi telegramBotsApi = new TelegramBotsApi(
+                    Config.pathToCertificateStore,
+                    Config.certificateStorePassword,
+                    Config.EXTERNALWEBHOOKURL,
+                    Config.INTERNALWEBHOOKURL,
+                    Config.pathToCertificatePublicKey);
+            telegramBotsApi.registerBot(webhookService);
+            System.out.println("****Telegram Bot started*******");
+            log.info("*****Bot started!!******");
+
+        } catch (TelegramApiRequestException e) {
+            e.printStackTrace();
+        }
+
     }
 }

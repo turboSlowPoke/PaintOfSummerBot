@@ -1,15 +1,26 @@
 package dbservices;
 
 import dbservices.entyties.Address;
+import dbservices.entyties.Incident;
 import dbservices.entyties.User;
 import org.apache.log4j.Logger;
+import telegramservices.enums.CommandsWaitParameters;
 
 import javax.persistence.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DbService {
     private static final Logger log = Logger.getLogger(DbService.class);
     private static DbService dbService;
     private final EntityManagerFactory entityManagerFactory;
+    private Map<Long,CommandsWaitParameters> waitParametersMap;
+
+    public Map<Long, CommandsWaitParameters> getWaitParametersMap() {
+        if (waitParametersMap ==null)
+            waitParametersMap =new HashMap<>();
+        return waitParametersMap;
+    }
 
     public DbService() {
         this.entityManagerFactory = Persistence.createEntityManagerFactory("eclipsMysql");
@@ -56,14 +67,14 @@ public class DbService {
         }finally {
             em.clear();
             em.close();
+            return check;
         }
-        return check;
     }
 
     public synchronized boolean dbHasApartment(int apartmentNumber) {
         boolean check = false;
         EntityManager em = entityManagerFactory.createEntityManager();
-        TypedQuery<Address> query = em.createQuery("SELECT a FROM Address a WHERE a.apartment=:n",Address.class)
+        TypedQuery<Address> query = em.createQuery("SELECT a FROM Address a WHERE a.flat=:n",Address.class)
                 .setParameter("n",apartmentNumber);
         try {
             Address address = query.getSingleResult();

@@ -8,6 +8,9 @@
     <persistence-unit name="eclipsMysql" transaction-type="RESOURCE_LOCAL">
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
         <class>dbservices.entyties.User</class>
+        <class>dbservices.entyties.Address</class>
+        <class>dbservices.entyties.Incident</class>
+        <class>dbservices.entyties.LocalDateTimeConvereter</class>
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>

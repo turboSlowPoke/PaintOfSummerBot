@@ -43,4 +43,11 @@ public class Address {
 
     }
 
+    public int getBuildNumber() {
+        return buildNumber;
+    }
+
+    public int getFloor() {
+        return floor;
+    }
 }

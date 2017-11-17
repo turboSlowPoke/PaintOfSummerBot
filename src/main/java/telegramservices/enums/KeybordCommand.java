@@ -2,8 +2,8 @@ package telegramservices.enums;
 
 public enum  KeybordCommand {
     //mainmenu
-    CURRENTCRASH("Текущие аварии"),
-    NEWCRASH("Сообщить об аварии"),
+    CURRENTINCIDENT("Текущие аварии"),
+    NEWINCIDENT("Сообщить об аварии"),
     INFO("Полезная информация"),
     NEWS("Новости"),
     CHAT("Чат"),
@@ -20,18 +20,8 @@ public enum  KeybordCommand {
     ONEDAY("Один день"),
     TWODAY("Два дня"),
     WERYLONG("Больше двух дней "),
-    //create crash
-    ELECTRO("нет электричества"),
-    WATER("нет воды"),
-    COLDWATER("горячей"),
-    HOTWATER("холодной"),
-    ALLWATER("холодной и горячей"),
-    LIFT("Не работает лифт"),
-    IMFLOODING("Я затапливаю"),
-    FLOODING("Меня топят"),
-    FAIL("Неизвестная команда"),
-    HEATING("Нет отопления")
-            ;
+
+    FAIL("Неизвестная команда");
 
     KeybordCommand(String text) {
         this.text = text;
